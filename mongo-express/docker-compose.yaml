@@ -9,7 +9,7 @@ services:
     ports:
       - '0.0.0.0:27022:27017'
     volumes:
-      - ~/dev/mongodb/data/m3:/data/db
+      - ./mongo-data:/data/db
     logging:
       driver: "local"
       options:
@@ -19,6 +19,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=1234
 
+# Optional: A web-based interface to view your data
   mongo-express:
     image: mongo-express
     container_name: mongo-express
@@ -29,3 +30,12 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: 1234
       ME_CONFIG_MONGODB_URL: mongodb://root:1234@mongo:27017/
+
+
+# Why this is better:
+
+# Persistence: Data is saved in a folder named ./mongo-data on your computer. You won't lose data if you restart Docker.
+
+# Security: It enables authentication with a username and password.
+
+# Bonus GUI: You can open http://localhost:8081 in your browser to manage your database visually.
